@@ -189,6 +189,25 @@ class Poly:
             new_coeffs.append(i * self.coeffs[i])
         return Poly(new_coeffs)
 
+    def mul_karatsuba(self, other):
+        return Poly(_karatsuba(self.coeffs, other.coeffs))
+
+    def __iadd__(self, other):
+        self.coeffs = (self + other).coeffs
+        return self
+
+    def __isub__(self, other):
+        self.coeffs = (self - other).coeffs
+        return self
+
+    def __imul__(self, other):
+        self.coeffs = (self * other).coeffs
+        return self
+
+    def __ipow__(self, n):
+        self.coeffs = (self ** n).coeffs
+        return self
+
     def eval_naive(self, x):
         '''
         Evaluate by summing a_i * x**i one term at a time.  The
