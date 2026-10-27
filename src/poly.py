@@ -183,7 +183,7 @@ class Poly:
             result = result * self
         return result
 
-def eval_naive(self, x):
+    def eval_naive(self, x):
         '''
         Evaluate by summing a_i * x**i one term at a time.  The
         per-term `x ** i` recomputes a power each iteration, so the
