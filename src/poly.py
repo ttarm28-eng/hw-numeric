@@ -13,7 +13,7 @@ and they can be called like regular functions.
 >>> p(3)
 34
 
-Because of this special structure, we can do a lot of operations that can't be done on ordinary functions.
+Because of this special structure, we can do a lot of operations that can not be done on ordinary functions.
 
 We can compute derivatives:
 
