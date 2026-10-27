@@ -162,7 +162,7 @@ class Dual:
 
     def __mul__(self, other):
         if not isinstance(other, Dual):
-            other = Dual(other
+            other = Dual(other)
         return Dual(self.v * other.v, self.d * other.v + self.v * other.d)
 
     def __truediv__(self, other):
