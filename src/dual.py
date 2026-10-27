@@ -173,6 +173,7 @@ class Dual:
     def __pow__(self, n):
         return Dual(self.v ** n, n * self.v ** (n - 1) * self.d)
 
+
 def sin(x):
     '''
     sin, differentiable if x is a Dual.
