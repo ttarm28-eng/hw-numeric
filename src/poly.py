@@ -178,6 +178,8 @@ class Poly:
         return Poly(_karatsuba(self.coeffs, other.coeffs))
 
     def __pow__(self, n):
+        if n < 0:
+            raise ValueError('negative exponent')
         result = Poly([1])
         for _ in range(n):
             result = result * self
