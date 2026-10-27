@@ -133,8 +133,28 @@ class Dual:
     >>> print(Dual(1, 2) + Dual(3, 4))
     4 + 6ε
     '''
-    x: object
-    y: object
+    def __init__(self, v, d=0):
+        self.v = v
+        self.d = d
+
+    def __repr__(self):
+        return f'Dual(v={self.v!r}, d={self.d!r})'
+
+    def __str__(self):
+        return f'{self.v} + {self.d}ε'
+
+    def __eq__(self, other):
+        if not isinstace(other, Dual):
+            return False
+        return self.v == other.v and self.d == other.d
+
+    def __hash(self):
+        return hash((self.v, self.d))
+
+    def __add__(self, other):
+        if not isinstance(other, Dual):
+            other = Dual(other)
+        return Dual(self.v + other.v, self.d + other.d)
 
 def sin(x):
     '''
@@ -170,7 +190,10 @@ def tanh(x):
     # this is the only one of these functions you need to implement
     # there's only one doctest here,
     # but lots of other tests depend on tanh
-
+    if instance(x, Dual):
+        t = math.tanh(x.v)
+        return Dual(t, (1 - t ** 2) * x.d)
+    return math.tanh(x)
 
 def exp(x):
     '''
