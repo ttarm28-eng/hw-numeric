@@ -105,6 +105,7 @@ Dual(v=1.0, d=1.0)
 '''
 import math
 
+
 class Dual:
     '''
     The dual number v + d*epsilon with epsilon**2 == 0.
@@ -144,7 +145,7 @@ class Dual:
         return f'{self.v} + {self.d}ε'
 
     def __eq__(self, other):
-        if not isinstace(other, Dual):
+        if not isinstance(other, Dual):
             return False
         return self.v == other.v and self.d == other.d
 
@@ -155,6 +156,7 @@ class Dual:
         if not isinstance(other, Dual):
             other = Dual(other)
         return Dual(self.v + other.v, self.d + other.d)
+
 
 def sin(x):
     '''
@@ -190,10 +192,11 @@ def tanh(x):
     # this is the only one of these functions you need to implement
     # there's only one doctest here,
     # but lots of other tests depend on tanh
-    if instance(x, Dual):
+    if isinstance(x, Dual):
         t = math.tanh(x.v)
         return Dual(t, (1 - t ** 2) * x.d)
     return math.tanh(x)
+
 
 def exp(x):
     '''
