@@ -182,6 +182,11 @@ class Poly:
         for _ in range(n):
             result = result * self
         return result
+    def derivative(self):
+        new_coeffs = []
+        for i in range(1, len(self.coeffs)):
+            new_coeffs.append(i * self.coeffs[i])
+        return Poly(new_coeffs)
 
     def eval_naive(self, x):
         '''
