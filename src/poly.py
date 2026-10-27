@@ -182,7 +182,8 @@ class Poly:
         for _ in range(n):
             result = result * self
         return result
-    def derivative(self):
+
+def derivative(self):
         new_coeffs = []
         for i in range(1, len(self.coeffs)):
             new_coeffs.append(i * self.coeffs[i])
