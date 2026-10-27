@@ -157,7 +157,7 @@ class Dual:
             other = Dual(other)
         return Dual(self.v + other.v, self.d + other.d)
 
-   def __neg__(self):
+    def __neg__(self):
         return Dual(-self.v, -self.d)
 
     def __mul__(self, other):
