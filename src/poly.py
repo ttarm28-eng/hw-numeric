@@ -1,3 +1,4 @@
+import math
 '''
 Exact polynomial arithmetic over the rationals.
 
@@ -252,7 +253,7 @@ def _karatsuba(a, b):
     a0_plus_a1 = [a0[i] + a1[i] for i in range(m)]
     b0_plus_b1 = [b0[i] + b1[i] for i in range(m)]
     z1 = _karatsuba(a0_plus_a1, b0_plus_b1)
-    middle_term = [z1[i] - z0[i] -z2[i] for i in range(len(z1))]
+    middle_term = [z1[i] - z0[i] - z2[i] for i in range(len(z1))]
 
     result = [0] * (2 * n)
     for i in range(len(z0)):
