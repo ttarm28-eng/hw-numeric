@@ -105,6 +105,61 @@ class Poly:
     >>> print(Poly([1, 0, 2]))
     2x**2 + 1
     '''
+    def __init__(self, coeffs):
+        coeffs = list(coeffs)
+        while len(coeffs) > 0 and coeffs[-1] == 0:
+            coeffs.pop()
+        if len(coeffs) == 0:
+            coeffs = [0]
+        self.coeffs = coeffs
+
+    def __eq__(self, other):
+        if not isinstance(other, Poly):
+            return False
+        return self.coeffs == other.coeffs
+
+    __hash__ = None
+
+    def __repr__(self):
+        return f'Poly({self.coeffs!r})'
+
+    def __str__(self):
+        terms = []
+        for i in range(len(self.coeffs) - 1, -1, -1):
+            c = self.coeffs[i]
+            if c != 0:
+                size = abs(c)
+                if i == 0:
+                    body = str(size)
+                elif i == 1:
+                    body = 'x' if size == 1 else f'{size}x'
+                else:
+                    if size == 1:
+                        body = f'x**{i}'
+                    else:
+                        body = f'{size}x**{i}'
+                terms.append((c < 0, body))
+        if len(terms) == 0:
+            return '0'
+        xs = ''
+        for pair in terms:
+            negative = pair[0]
+            body = pair[1]
+            if xs == '':
+                if negative:
+                    xs = '-' + body
+                else:
+                    xs = body
+            else:
+                if negative:
+                    xs = xs + ' - ' + body
+                else:
+                    xs = xs + ' + ' + body
+        return xs
+
+    def __call__(self, x):
+        return self.eval_horner(x)
+
     def eval_naive(self, x):
         '''
         Evaluate by summing a_i * x**i one term at a time.  The
@@ -179,3 +234,32 @@ def _karatsuba(a, b):
     >>> _karatsuba([0], [1, 2, 3])
     [0, 0, 0]
     '''
+    n = max(len(a), len(b))
+    if (n & (n - 1) != 0:
+        n = 1 << (math.floor(math.log2(n)) + 1)
+    a_padded = a + [0] * (n - len(a))
+    b_padded = b + [0] * (n - len(b))
+    if n == 1:
+        return [a_padded[0] * b_padded[0]]
+    m = n // 2
+    a0 = a_padded[:m]
+    a1 = a_padded[m:]
+    b0 = b_padded[:m]
+    b1 = b_padded[m:]
+
+    z0 = _karatsuba(a0, b0)
+    z2 = _karatsuba(a1, b1)
+    a0_plus_a1 = [a0[i] + a1[i] for i in range(m)]
+    b0_plus_b1 = [b0[i] + b1[i] for i in range(m)]
+    z1 = _karatsuba(a0_plus_a1, b0_plus_b1)
+    middle_term = [z1[i] - z0[i] -z2[i] for i in range(len(z1))]
+
+    result = [0] * (2 * n)
+    for i in range(len(z0)):
+        result[i] += z0[i]
+    for i in range(len(middle_term)):
+        result[m + i] += middle_term[i]
+    for i in range(len(z2)):
+        result[2 * m + i] += z2[i]
+
+    return result[:len(a) + len(b) - 1]

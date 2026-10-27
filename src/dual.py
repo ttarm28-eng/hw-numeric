@@ -133,7 +133,8 @@ class Dual:
     >>> print(Dual(1, 2) + Dual(3, 4))
     4 + 6ε
     '''
-
+    x: object
+    y: object
 
 def sin(x):
     '''
