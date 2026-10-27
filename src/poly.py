@@ -161,7 +161,29 @@ class Poly:
     def __call__(self, x):
         return self.eval_horner(x)
 
-    def eval_naive(self, x):
+    def __add__(self, other):
+        a, b = self.coeffs, other.coeffs
+        n = max(len(a), len(b))
+        a = a + [0] * (n - len(a))
+        b = b + [0] * (n - len(b))
+        return Poly([a[i] + b[i] for i in range(n)])
+
+    def __neg__(self):
+        return Poly([-c for c in self.coeffs])
+
+    def __sub__(self, other):
+        return self + (-other)
+
+    def __mul__(self, other):
+        return Poly(_karatsuba(self.coeffs, other.coeffs))
+
+    def __pow__(self, n):
+        result = Poly([1])
+        for _ in range(n):
+            result = result * self
+        return result
+
+def eval_naive(self, x):
         '''
         Evaluate by summing a_i * x**i one term at a time.  The
         per-term `x ** i` recomputes a power each iteration, so the
