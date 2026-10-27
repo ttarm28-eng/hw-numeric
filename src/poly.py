@@ -235,7 +235,7 @@ def _karatsuba(a, b):
     [0, 0, 0]
     '''
     n = max(len(a), len(b))
-    if (n & (n - 1) != 0:
+    if (n & (n - 1)) != 0:
         n = 1 << (math.floor(math.log2(n)) + 1)
     a_padded = a + [0] * (n - len(a))
     b_padded = b + [0] * (n - len(b))
