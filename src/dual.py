@@ -157,6 +157,21 @@ class Dual:
             other = Dual(other)
         return Dual(self.v + other.v, self.d + other.d)
 
+   def __neg__(self):
+        return Dual(-self.v, -self.d)
+
+    def __mul__(self, other):
+        if not isinstance(other, Dual):
+            other = Dual(other
+        return Dual(self.v * other.v, self.d * other.v + self.v * other.d)
+
+    def __truediv__(self, other):
+        if not isinstance(other, Dual):
+            other = Dual(other)
+        return Dual(self.v / other.v, self.d * other.v - self.v * other.d) / other.v ** 2)
+
+    def __pow__(self, n):
+        return Dual(self.v ** n, n * self.v ** (n - 1) * self.d)
 
 def sin(x):
     '''
