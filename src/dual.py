@@ -170,7 +170,7 @@ class Dual:
             other = Dual(other)
         return Dual(self.v / other.v, (self.d * other.v - self.v * other.d) / other.v ** 2)
 
-    def __pow__(self, n):
+    def __pow__(self, other):
         if not isinstance(other, Dual):
             return Dual(self.v ** other, other * self.v ** (other - 1) * self.d)
         v = self.v ** other.v
