@@ -2,7 +2,7 @@
 This file implements automatic differentiation (autodiff) with dual numbers.
 Autodiff is the backbone of modern machine learning libraries like torch and tensorflow because these libraries train models using the gradient descent algorithm.
 
-First, let's see an example.
+First, lets see an example.
 Consider the function below.
 
 >>> f = lambda x: sin(x ** 2) + 2 * x
