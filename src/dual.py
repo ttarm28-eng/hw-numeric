@@ -182,7 +182,7 @@ class Dual:
     def __rmul__(self, other):
         return self * other
 
-    def __rtruediv__(self, other)
+    def __rtruediv__(self, other):
         return Dual(other) / self
 
 
