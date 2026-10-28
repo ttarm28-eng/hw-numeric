@@ -174,7 +174,7 @@ class Dual:
         if not isinstance(other, Dual):
             return Dual(self.v ** other, other * self.v ** (other - 1) * self.d)
         v = self.v ** other.v
-        d = other * self.v ** (other.v - 1) * self.d
+        d = other.v * self.v ** (other.v - 1) * self.d
         if other.d != 0:
             d = d + v * math.log(self.v) * other.d
         return Dual(v, d)
