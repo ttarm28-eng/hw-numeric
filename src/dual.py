@@ -173,6 +173,18 @@ class Dual:
     def __pow__(self, n):
         return Dual(self.v ** n, n * self.v ** (n - 1) * self.d)
 
+    def __radd__(self, other):
+        return self + other
+
+    def __rsub__(self, other):
+        return Dual(other) - self
+
+    def __rmul__(self, other):
+        return self * other
+
+    def __rtruediv__(self, other)
+        return Dual(other) / self
+
 
 def sin(x):
     '''
