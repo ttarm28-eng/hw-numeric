@@ -196,7 +196,7 @@ class Dual:
     def __rtruediv__(self, other):
         return Dual(other) / self
 
-    def __rpow__(self, other)
+    def __rpow__(self, other):
         return Dual(other) ** self
 
 
