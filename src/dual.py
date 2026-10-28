@@ -149,7 +149,7 @@ class Dual:
             return False
         return self.v == other.v and self.d == other.d
 
-    def __hash(self):
+    def __hash__(self):
         return hash((self.v, self.d))
 
     def __add__(self, other):
@@ -171,7 +171,13 @@ class Dual:
         return Dual(self.v / other.v, (self.d * other.v - self.v * other.d) / other.v ** 2)
 
     def __pow__(self, n):
-        return Dual(self.v ** n, n * self.v ** (n - 1) * self.d)
+        if not isinstance(other, Dual):
+            return Dual(self.v ** other, other * self.v ** (other - 1) * self.d)
+        v = self.v ** other.v
+        d = other * self.v ** (other.v - 1) * self.d
+        if other.d != 0:
+            d = d + v * math.log(self.v) * other.d
+        return Dual(v, d)
 
     def __radd__(self, other):
         return self + other
@@ -182,8 +188,16 @@ class Dual:
     def __rmul__(self, other):
         return self * other
 
+    def __sub__(self, other):
+        if not isinstance(other, Dual):
+            other = Dual(other)
+        return Dual(self.v - other.v, self.d - other.d)
+
     def __rtruediv__(self, other):
         return Dual(other) / self
+
+    def __rpow__(self, other)
+        return Dual(other) ** self
 
 
 def sin(x):
